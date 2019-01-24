@@ -6,11 +6,6 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/test',
-      name: 'test',
-      component: () => import(/* webpackChunkName: "test" */ './views/test.vue')
-    },
-    {
       path: '/',
       name: 'shelf',
       component: () => import(/* webpackChunkName: "shelf" */ './views/shelf.vue')
@@ -29,6 +24,16 @@ export default new Router({
       path: '/category',
       name: 'category',
       component: () => import(/* webpackChunkName: "category" */ './views/category.vue')
+    },
+    {
+      path: '/book',
+      name: 'book',
+      component: () => import(/* webpackChunkName: "book" */ './views/book.vue')
+    },
+    {
+      path: '/read',
+      name: 'read',
+      component: () => import(/* webpackChunkName: "read" */ './views/read.vue')
     }
   ]
 })

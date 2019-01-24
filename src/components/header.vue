@@ -37,7 +37,7 @@ export default {
 .header{
 	z-index: 10;
 	position: relative;
-	font-size: 18px;
+	font-size: 16px;
 	width: 100%;
 	height: 40px;
 	line-height: 40px;

@@ -13,7 +13,7 @@
 		</div>
 		<div class="category" :style="{height: scrollHeight}">
 			<cube-scroll :options="options" @pulling-up="onPullingUp" ref="scroll">
-				<div class="category-book-item border-bottom-1px" v-for="(item, index) in bookData">
+				<router-link :to="{path: 'book', query: {id: item._id}}" class="category-book-item border-bottom-1px" v-for="(item, index) in bookData" tag="div">
 					<div class="category-book-itemImg">
 						<img :src="decodeURIComponent(item.cover.replace('/agent/', ''))" />
 					</div>
@@ -28,7 +28,7 @@
 							<span>读者留存</span>
 						</p>
 					</div>
-				</div>
+				</router-link>
 			</cube-scroll>
 		</div>
 	</div>
@@ -148,8 +148,8 @@ export default {
 }
 </script>
 
-<style>
-.category .before-trigger{
+<style scoped>
+.category >>> .before-trigger{
 	font-size: 14px;
 }
 .category-color-red{
@@ -160,24 +160,25 @@ export default {
   overflow-x: scroll;
   border-bottom: 1px solid #f0f0f0;
 }
-.category-filter-item .cube-checker{
+.category-filter-item >>> .cube-checker{
 	padding-left: 10px;
 }
-.category-filter-item .cube-checker-item{
+.category-filter-item >>> .cube-checker-item{
 	font-size: 14px;
 	padding: 15px 10px;
 	color: #999;
 }
-.category-filter-item .cube-checker-item_active{
+.category-filter-item >>> .cube-checker-item_active{
 	color: #93D0FF;
 }
-.category-filter-item .cube-checker-item:after{
+.category-filter-item >>> .cube-checker-item:after{
 	content: none;
 }
-.category-filter-item, .category-filter-item .cube-checker-item{
+.category-filter-item, .category-filter-item >>> .cube-checker-item{
 	background-color: #fff;
 }
 .category-book-item{
+	background-color: #fff;
 	position: relative;
 	padding: 15px;
 }

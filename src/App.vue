@@ -7,6 +7,7 @@
 <style lang="less">
 body, html {
 	height: 100%;
+	background-color: #f5f5f5;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
