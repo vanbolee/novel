@@ -1,22 +1,28 @@
 <template>
-	<div class="read" v-title="header.title">
-		<ul>
-			<li v-for="(item, index) in bookContent" :key="index">
-				<div class="read-title" v-text="item.title"></div>
-				<p class="read-p" v-for="(items, index) in item.content" v-text="items"></p>
-			</li>
-		</ul>
+	<div class="read" ref="read" :style="{backgroundColor: themes[themes.type].bgColor}" v-title="header.title" @click="showControl = !showControl">
+		<read-content :data="bookContent" :show-loading="scrollToNext"></read-content>
+		<read-control :show="showControl" @themesChange="themesChange" @showMenu="showMenu" @toNearChapter="toNearChapter"></read-control>
+		<read-menu ref="menu" :data="menu" @menu-change="menuChange" @change-chapter-index="changeMenuIndex"></read-menu>
 	</div>
 </template>
 
 <script>
+import readContent from '../components/readContent'
+import readControl from '../components/readControl'
+import readMenu from '../components/readMenu'
 export default {
+	components: {
+		readContent,
+		readControl,
+		readMenu
+	},
 	data () {
 		return {
 			header: {
 				title: '阅读'
 			},
 			bookId: this.$route.query.id,
+			bookName: this.$route.query.name,
 			readId: '',
 			menu: [],
 			bookContent: [],
@@ -24,7 +30,34 @@ export default {
 				sourceIndex: 0, //数据源index
 				menuIndex: 1, //目录index
 				sourceData: [] //数据源
-			}
+			},
+			scrollToNext: false, //滚动加载下一章开关
+			showControl: false,
+			themes: { //主题
+				type: 'default',
+				default: {
+					bgColor: '#eee6dd',
+					color: {
+						title: '#333',
+						content: '#5c5d58'
+					}
+				},
+				dark: {
+					bgColor: '#0c0c0c',
+					color: {
+						title: '#888',
+						content: '#666'
+					}
+				},
+				protect: {
+					bgColor: '#b8cd8d',
+					color: {
+						title: '#0c2e10',
+						content: '#3d5840'
+					}
+				}
+			},
+			top: 0
 		}
 	},
 	methods: {
@@ -52,31 +85,94 @@ export default {
 					title: res.data.chapter.title,
 					content: _content
 				})
+				document.title = this.bookName+'_'+res.data.chapter.title
+				this.scrollToNext = false
 			})
+		},
+		changeMenuIndex (index) {
+			this.menuChange('hide')
+			this.source.menuIndex = index+1
+			this.bookContent = []
+			this.getChapter()
+		},
+		scroll () {
+			let _dom = this.$refs.read
+			if (_dom.scrollTop+_dom.clientHeight === _dom.scrollHeight) {
+				if (this.source.menuIndex === this.menu.length) {
+					return
+				}
+				this.scrollToNext = true
+			}
+		},
+		themesChange (val) {
+			this.themes.type = val
+		},
+		menuChange (type) {
+			if (type === 'show') {
+				this.$refs.menu.show()
+			} else {
+				this.$refs.menu.hide()
+			}
+		},
+		showMenu () {
+			this.showControl = false
+			this.menuChange('show')
+		},
+		toNearChapter (val) {
+			if (val === 'last') {
+				if (this.source.menuIndex === 1) {
+					this.$createToast({
+		        txt: '已经是第一章',
+		        type: 'txt',
+		        time: 1000
+		      }).show()
+					return
+				}
+				this.source.menuIndex-=1
+			} else {
+				if (this.source.menuIndex === this.menu.length) {
+					this.$createToast({
+		        txt: '已经是最后一章',
+		        type: 'txt',
+		        time: 1000
+		      }).show()
+					return
+				}
+				this.source.menuIndex+=1
+			}
+			this.bookContent = []
+			this.getChapter()
 		}
 	},
 	created () {
 		this.getReadId()
+	},
+	mounted () {
+		this.$nextTick(()=>{
+			setTimeout(()=>{
+				this.$refs.read.addEventListener('scroll', this.scroll)
+			}, 1000)
+		})
+	},
+	watch: {
+		scrollToNext: function (val) {
+			if (val) {
+				setTimeout(()=>{
+					this.source.menuIndex++
+					this.getChapter()
+				}, 1000)
+			}
+		}
+	},
+	beforeDestroy () {
+		this.$refs.read.removeEventListener('scroll', this.scroll)
 	}
 }
 </script>
 
 <style lang="less" scoped>
 .read{
-	background-color: #eee6dd;
 	height: 100vh;
 	overflow: scroll;
-}
-.read-title{
-	font-size: 22px;
-	line-height: 1.5;
-	padding: 20px;
-}
-.read-p{
-  text-indent: 2em;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 5px 20px;
-  color: #5c5d58;
 }
 </style>

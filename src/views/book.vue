@@ -19,7 +19,7 @@
 			</div>
 			<div class="book-button">
 				<a @click="toOperateShelf" :class="{'book-button-disabled' : isAddShelf}" v-text="isAddShelf ? '撤出书架' : '加入书架'"></a>
-				<router-link :to="{path: 'read', query: {id: this.bookId}}" tag="a">开始阅读</router-link>
+				<router-link :to="{path: 'read', query: {id: this.bookId, name: bookInfo.name}}" tag="a">开始阅读</router-link>
 			</div>
 			<div class="book-data">
 				<div class="book-data-item">

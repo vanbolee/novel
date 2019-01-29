@@ -16,6 +16,7 @@
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-service": "^3.3.0",
     "axios": "^0.18.0",
+    "fastclick": "^1.0.6",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "postcss-px-to-viewport": "^0.0.3",

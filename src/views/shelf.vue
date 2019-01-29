@@ -7,7 +7,7 @@
 			<div class="shelf-main"  v-if="hasBook">
 				<cube-scroll>
 					<cube-swipe>
-					<div class="shelf-item" v-for="(item, index) in bookData" :key="index">
+					<router-link :to="{path: 'read', query: {id: item.item.id, name: item.item.name}}" tag="div" class="shelf-item" v-for="(item, index) in bookData" :key="index">
 						<cube-swipe-item :btns="item.btns" :index="index" ref="swipeItem" @btn-click="btnClick">
 							<div class="shelf-item-img">
 								<img :src="item.item.img" />
@@ -21,7 +21,7 @@
 								<p v-text="'连载至： '+item.item.lastChapter"></p>
 							</div>
 						</cube-swipe-item>
-					</div>
+					</router-link>
 					</cube-swipe>
 				</cube-scroll>
 			</div>
