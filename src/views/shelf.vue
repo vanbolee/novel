@@ -3,25 +3,25 @@
 		<m-header :title="header.title">
 			<!--<a slot="label">123</a>-->
 		</m-header>
-		<div class="shelf" :style="{height: scrollHeight}">
-			<div class="shelf-main"  v-if="hasBook">
+		<div class="shelf">
+			<div class="shelf-main" :style="{height: scrollHeight}" v-if="hasBook">
 				<cube-scroll>
 					<cube-swipe>
-					<router-link :to="{path: 'read', query: {id: item.item.id, name: item.item.name}}" tag="div" class="shelf-item" v-for="(item, index) in bookData" :key="index">
-						<cube-swipe-item :btns="item.btns" :index="index" ref="swipeItem" @btn-click="btnClick">
-							<div class="shelf-item-img">
-								<img :src="item.item.img" />
-							</div>
-							<div class="shelf-item-content">
-								<p>
-									<span v-text="item.item.name"></span>
-									<span class="shelf-tag" v-text="item.item.time"></span>
-								</p>
-								<p v-text="item.item.author+' 著'"></p>
-								<p v-text="'连载至： '+item.item.lastChapter"></p>
-							</div>
-						</cube-swipe-item>
-					</router-link>
+						<router-link :to="{path: 'read', query: {id: item.item.id, name: item.item.name}}" tag="div" class="shelf-item" v-for="(item, index) in bookData" :key="index">
+							<cube-swipe-item :btns="item.btns" :index="index" ref="swipeItem" @btn-click="btnClick">
+								<div class="shelf-item-img">
+									<img :src="item.item.img" />
+								</div>
+								<div class="shelf-item-content">
+									<p>
+										<span v-text="item.item.name"></span>
+										<span class="shelf-tag" v-text="item.item.time"></span>
+									</p>
+									<p v-text="item.item.author+' 著'"></p>
+									<p v-text="'连载至： '+item.item.lastChapter"></p>
+								</div>
+							</cube-swipe-item>
+						</router-link>
 					</cube-swipe>
 				</cube-scroll>
 			</div>
@@ -141,9 +141,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.shelf{
-	overflow: scroll;
-}
 .shelf-main{
 	background-color: #fff;
 }
