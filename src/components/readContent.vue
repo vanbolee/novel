@@ -4,7 +4,8 @@
 			<div class="read-title" :style="{color: themes[themes.type].color.title}" v-text="item.title"></div>
 			<p class="read-p" :style="{color: themes[themes.type].color.content}" v-for="(items, index) in item.content" v-text="items"></p>
 		</li>
-		<div class="read-loading" :style="{visibility: showLoading ? 'visible' : 'hidden'}">加载中。。。</div>
+		<!--<div class="read-loading" :style="{visibility: showLoading ? 'visible' : 'hidden'}">加载中。。。</div>-->
+		<cube-loading class="read-loading" :style="{visibility: showLoading ? 'visible' : 'hidden'}"></cube-loading>
 	</ul>
 </template>
 
@@ -44,7 +45,8 @@ export default {
 .read-loading{
 	padding: 20px;
 	text-align: center;
-	color: #8ECDFC;
-	font-size: 12px;
+}
+.read-loading >>> span{
+	margin: 0 auto;
 }
 </style>

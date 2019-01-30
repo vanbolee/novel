@@ -97,7 +97,7 @@ export default {
 		},
 		scroll () {
 			let _dom = this.$refs.read
-			if (_dom.scrollTop+_dom.clientHeight === _dom.scrollHeight) {
+			if (_dom.scrollTop+_dom.clientHeight+10 >= _dom.scrollHeight) {
 				if (this.source.menuIndex === this.menu.length) {
 					return
 				}
@@ -157,10 +157,8 @@ export default {
 	watch: {
 		scrollToNext: function (val) {
 			if (val) {
-				setTimeout(()=>{
-					this.source.menuIndex++
-					this.getChapter()
-				}, 1000)
+				this.source.menuIndex+=1
+				this.getChapter()
 			}
 		}
 	},
