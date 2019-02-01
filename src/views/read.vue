@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import readContent from '../components/readContent'
-import readControl from '../components/readControl'
-import readMenu from '../components/readMenu'
+import readContent from '@/components/readContent'
+import readControl from '@/components/readControl'
+import readMenu from '@/components/readMenu'
 export default {
 	components: {
 		readContent,

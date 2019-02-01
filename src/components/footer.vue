@@ -20,9 +20,10 @@ export default {
 			selectedLabelSlots: '/',
 			tabs: [
 				{label: '书架', value: '/', icon: 'icon-book'},
+				{label: '精选', value: '/feature', icon: 'icon-jingxuan'},
 				{label: '分类', value: '/classify', icon: 'icon-fenlei'},
 				{label: '排行', value: '/ranking', icon: 'icon-paihangbang-'},
-				{label: '搜索', value: '/search', icon: 'icon-sousuo'},
+				{label: '搜索', value: '/search', icon: 'icon-sousuo'}
 			]
 		}
 	},

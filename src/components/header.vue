@@ -1,7 +1,10 @@
 <template>
 	<div class="header">
-		<span v-text="title"></span>
 		<i class="cubeic-back" v-if="showBack" @click="back"></i>
+		<span class="header-span" v-text="title" v-if="title"></span>
+		<div class="header-title">
+			<slot name="title"></slot>
+		</div>
 		<div class="header-label">
 			<slot name="label"></slot>
 		</div>
@@ -44,7 +47,7 @@ export default {
 	background-color: #26A2FF;
 	color: #fff;
   box-shadow: 0 2px 1px #e9eaea;
-  span{
+  .header-span{
   	display: block;
 		text-align: center;
   }
@@ -54,6 +57,10 @@ export default {
 	  left: 0;
 	  padding: 0 15px;
 	  color: #fff;
+	}
+	.header-title{
+		margin: 0 auto;
+		text-align: center;
 	}
 	.header-label{
 		position: absolute;

@@ -34,6 +34,11 @@ export default new Router({
       path: '/read',
       name: 'read',
       component: () => import(/* webpackChunkName: "read" */ './views/read.vue')
+    },
+    {
+      path: '/ranking',
+      name: 'ranking',
+      component: () => import(/* webpackChunkName: "ranking" */ './views/ranking.vue')
     }
   ]
 })
