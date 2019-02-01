@@ -8,6 +8,7 @@ A novel demo developed with vue-cli3 and cube-ui
 ![书籍详情](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/4.jpg)
 ![阅读页](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/5.jpg)
 ![排行](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/6.jpg)
+![精选](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/7.jpg)
 
 ## Project setup
 ```
