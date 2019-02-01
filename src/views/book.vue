@@ -130,7 +130,7 @@ export default {
 		},
 		getBookInfo () {
 			this.$axios.get('/book/'+this.bookId, {}).then((res)=>{
-				this.bookInfo.img = decodeURIComponent(res.data.cover.replace('/agent/', ''))
+				this.bookInfo.img = this.$store.state.imgHeader+res.data.cover
 				this.bookInfo.name = res.data.title
 				this.bookInfo.author = res.data.author
 				this.bookInfo.minorCate = res.data.minorCate
@@ -153,7 +153,7 @@ export default {
 					_bookReviewData.push({
 						id: res.data.reviews[i].author._id,
 						name: res.data.reviews[i].author.nickname,
-						avater: '//statics.zhuishushenqi.com'+res.data.reviews[i].author.avatar,
+						avater: this.$store.state.imgHeader+res.data.reviews[i].author.avatar,
 						title: res.data.reviews[i].title,
 						content: res.data.reviews[i].content,
 						time: this.formatUpdatedTime(res.data.reviews[i].updated, '前'),
@@ -170,7 +170,7 @@ export default {
 				for (let i=0; i<_length; i++) {
 					_moreLoveData.push({
 						id: res.data.books[i]._id,
-						img: decodeURIComponent(res.data.books[i].cover.replace('/agent/', '')),
+						img: this.$store.state.imgHeader+res.data.books[i].cover,
 						title: res.data.books[i].title
 					})
 				}

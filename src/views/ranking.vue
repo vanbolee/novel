@@ -6,25 +6,29 @@
 			</div>
 		</m-header>
 		<div class="ranking">
-			<div class="ranking-left" :style="{height: scrollHeight}" ref="rankingMenu">
-				<div class="ranking-left-item" :class="{'ranking-left-item-selected': item.isSelect}" v-for="(item, index) in rankingData[selectSex]" :key="index" v-text="item.name" @click="toSelectRanking(index)"></div>
+			<div class="ranking-left" :style="{height: scrollHeight}">
+				<cube-scroll ref="rankingMenu">
+					<div class="ranking-left-item" :class="{'ranking-left-item-selected': item.isSelect}" v-for="(item, index) in rankingData[selectSex]" :key="index" v-text="item.name" @click="toSelectRanking(index)"></div>
+				</cube-scroll>
 			</div>
 			<div class="ranking-right" :style="{height: scrollHeight}">
-				<router-link :to="{path: 'book', query: {id: item.id}}" tag="div" class="ranking-right-item" v-for="item in rankingData.childData">
-					<div class="ranking-right-item-img">
-						<img :src="item.img"/>
-					</div>
-					<div class="ranking-right-item-main">
-						<p class="ranking-right-item-name" v-text="item.name"></p>
-						<p class="ranking-right-item-author" v-text="item.author"></p>
-						<p class="ranking-right-item-intro" v-text="item.intro"></p>
-						<p class="ranking-right-item-more">
-							<span style="color: #ed424b;" v-text="item.retentionRatio+'%留存'"></span>
-							<span v-html="'&nbsp;&nbsp;|&nbsp;&nbsp;'"></span>
-							<span style="color: #4284ed;" v-text="item.latelyFollower+'人气'"></span>
-						</p>
-					</div>
-				</router-link>
+				<cube-scroll>
+					<router-link :to="{path: 'book', query: {id: item.id}}" tag="div" class="ranking-right-item" v-for="item in rankingData.childData">
+						<div class="ranking-right-item-img">
+							<img :src="item.img"/>
+						</div>
+						<div class="ranking-right-item-main">
+							<p class="ranking-right-item-name" v-text="item.name"></p>
+							<p class="ranking-right-item-author" v-text="item.author"></p>
+							<p class="ranking-right-item-intro" v-text="item.intro"></p>
+							<p class="ranking-right-item-more">
+								<span style="color: #ed424b;" v-text="item.retentionRatio+'%留存'"></span>
+								<span v-html="'&nbsp;&nbsp;|&nbsp;&nbsp;'"></span>
+								<span style="color: #4284ed;" v-text="item.latelyFollower+'人气'"></span>
+							</p>
+						</div>
+					</router-link>
+				</cube-scroll>
 			</div>
 		</div>
 		<m-footer></m-footer>
@@ -91,7 +95,7 @@ export default {
 						id: res.data.ranking.books[i]._id,
 						author: res.data.ranking.books[i].author,
 						name: res.data.ranking.books[i].title,
-						img: 'https://statics.zhuishushenqi.com'+res.data.ranking.books[i].cover,
+						img: this.$store.state.imgHeader+res.data.ranking.books[i].cover,
 						intro: res.data.ranking.books[i].shortIntro,
 						retentionRatio: res.data.ranking.books[i].retentionRatio,
 						latelyFollower: this.formatPeople(res.data.ranking.books[i].latelyFollower)
@@ -106,7 +110,7 @@ export default {
 			this.sex[index].isSelect = true
 			this.selectSex = this.sex[index].key
 			this.toSelectRanking(0)
-			this.$refs.rankingMenu.scrollTop = 0
+			this.$refs.rankingMenu.scrollTo(0,0)
 		},
 		toSelectRanking (index) {
 			for (let i in this.rankingData[this.selectSex]) {
@@ -151,7 +155,6 @@ export default {
 	color: #26A2FF;
 }
 .ranking-left{
-	overflow-y: scroll;
 	display: inline-block;
 	vertical-align: top;
 	width: 80px;
@@ -167,7 +170,6 @@ export default {
 	background-color: #fff;
 }
 .ranking-right{
-	overflow-y: scroll;
 	display: inline-block;
 	vertical-align: top;
 	width: 295px;

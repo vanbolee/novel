@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-		api: '//api.zhuishushenqi.com'
+		imgHeader: 'https://statics.zhuishushenqi.com'
   },
   mutations: {
 
