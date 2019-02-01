@@ -41,7 +41,7 @@ import {
   /*ImagePreview,*/
   // scroll
   Scroll,
-  /*Slide,*/
+  Slide,
   /*IndexList,*/
   Swipe,
   /*Sticky,*/
@@ -80,7 +80,7 @@ Vue.use(Dialog)
 //Vue.use(Drawer)
 //Vue.use(ImagePreview)
 Vue.use(Scroll)
-//Vue.use(Slide)
+Vue.use(Slide)
 //Vue.use(IndexList)
 Vue.use(Swipe)
 //Vue.use(Sticky)

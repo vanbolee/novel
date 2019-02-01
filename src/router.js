@@ -39,6 +39,11 @@ export default new Router({
       path: '/ranking',
       name: 'ranking',
       component: () => import(/* webpackChunkName: "ranking" */ './views/ranking.vue')
+    },
+    {
+      path: '/feature',
+      name: 'feature',
+      component: () => import(/* webpackChunkName: "feature" */ './views/feature.vue')
     }
   ]
 })

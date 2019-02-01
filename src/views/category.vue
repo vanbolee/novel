@@ -22,9 +22,9 @@
 						<p class="category-book-itemMain-author" v-html="item.author+'&nbsp;&nbsp;|&nbsp;&nbsp;'+item.majorCate"></p>
 						<p class="category-book-itemMain-intro" v-text="item.shortIntro.replace(/\s+/g, '')"></p>
 						<p class="category-book-itemMain-important">
-							<span class="category-color-red" v-text="formatPeople(item.latelyFollower)"></span>
+							<span class="red" v-text="formatPeople(item.latelyFollower)"></span>
 							<span>人&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-							<span class="category-color-red" v-text="item.retentionRatio+'%'"></span>
+							<span class="red" v-text="item.retentionRatio+'%'"></span>
 							<span>读者留存</span>
 						</p>
 					</div>
@@ -151,9 +151,6 @@ export default {
 <style scoped>
 .category >>> .before-trigger{
 	font-size: 14px;
-}
-.category-color-red{
-	color: #b93321;
 }
 .category-filter-item{
   white-space: nowrap;

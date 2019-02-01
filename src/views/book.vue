@@ -138,7 +138,7 @@ export default {
 				this.bookInfo.updatedTime = this.formatUpdatedTime(res.data.updated, '前更新')
 				this.bookInfo.latelyFollower = this.formatPeople(res.data.latelyFollower)
 				this.bookInfo.retentionRatio = res.data.retentionRatio
-				this.bookInfo.serializeWordCount = res.data.serializeWordCount
+				this.bookInfo.serializeWordCount = res.data.serializeWordCount > 0 ? res.data.serializeWordCount : 0
 				this.bookInfo.longIntro = res.data.longIntro
 				this.bookInfo.lastChapter = res.data.lastChapter
 			})

@@ -18,4 +18,7 @@ body, html {
 .cube-tab_active{
 	color: #26A2FF;
 }
+.red{
+	color: #b93321;
+}
 </style>
