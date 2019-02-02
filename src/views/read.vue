@@ -1,7 +1,7 @@
 <template>
 	<div class="read" ref="read" :style="{backgroundColor: themes[themes.type].bgColor}" v-title="header.title" @click="showControl = !showControl">
 		<read-content :data="bookContent" :show-loading="scrollToNext"></read-content>
-		<read-control :show="showControl" @themesChange="themesChange" @showMenu="showMenu" @toNearChapter="toNearChapter"></read-control>
+		<read-control :show="showControl" @themesChange="themesChange" @showMenu="showMenu" @toNearChapter="toNearChapter" @changeSource="changeSource"></read-control>
 		<read-menu ref="menu" :data="menu" @menu-change="menuChange" @change-chapter-index="changeMenuIndex"></read-menu>
 	</div>
 </template>
@@ -29,6 +29,7 @@ export default {
 			source: {
 				sourceIndex: 0, //数据源index
 				menuIndex: 1, //目录index
+				changeSource: null,
 				sourceData: [] //数据源
 			},
 			scrollToNext: false, //滚动加载下一章开关
@@ -74,6 +75,8 @@ export default {
 		getMenu () {
 			this.$axios.get('/atoc/'+this.readId+'?view=chapters&channel=mweb&platform=h5', {}).then((res)=>{
 				this.menu = res.data.chapters
+				this.bookContent = []
+				this.source.menuIndex = 1
 				this.getChapter()
 			})
 		},
@@ -95,9 +98,26 @@ export default {
 			this.bookContent = []
 			this.getChapter()
 		},
+		changeSource () {
+			if (!this.source.changeSource) {
+        this.source.changeSource = this.$createPicker({
+          title: '换源',
+          data: [this.source.sourceData.map((item)=>{return {text: item.name, value: item.name}})],
+          onSelect: this.toChangeSource,
+        })
+      }
+      this.source.changeSource.show()
+		},
+		toChangeSource (selectedVal, selectedIndex, selectedText) {
+			if (this.source.sourceIndex !== selectedIndex[0]) {
+				this.source.sourceIndex = selectedIndex[0]
+				this.readId = this.source.sourceData[this.source.sourceIndex]._id
+				this.getMenu()
+			}
+		},
 		scroll () {
 			let _dom = this.$refs.read
-			if (_dom.scrollTop+_dom.clientHeight+10 >= _dom.scrollHeight) {
+			if (_dom.scrollTop+_dom.clientHeight+10 >= _dom.scrollHeight && _dom.scrollTop !== 0) {
 				if (this.source.menuIndex === this.menu.length) {
 					return
 				}
