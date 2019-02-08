@@ -25,9 +25,11 @@
 					</cube-swipe>
 				</cube-scroll>
 			</div>
-			<div class="shelf-no" v-else>
-				<img src="../assets/cry.png" />
-				<p>书架空空如也</p>
+			<div class="shelf-no" :style="{height: scrollHeight}" v-else>
+				<div class="shelf-no-main">
+					<img src="../assets/cry.png" />
+					<p>书架空空如也</p>
+				</div>
 			</div>
 		</div>
 		<m-footer></m-footer>
@@ -198,14 +200,20 @@ export default {
 	}
 }
 .shelf-no{
-	padding: 180px 0;
 	text-align: center;
-	img{
-		width: 100px;
-	}
-	p{
-		font-size: 16px;
-		margin-top: 20px;
+	position: relative;
+	.shelf-no-main{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		img{
+			width: 100px;
+		}
+		p{
+			font-size: 16px;
+			margin-top: 20px;
+		}
 	}
 }
 </style>
