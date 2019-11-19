@@ -15,7 +15,7 @@
 			<cube-scroll :options="options" @pulling-up="onPullingUp" ref="scroll">
 				<router-link :to="{path: 'book', query: {id: item._id}}" class="category-book-item border-bottom-1px" v-for="(item, index) in bookData" tag="div">
 					<div class="category-book-itemImg">
-						<img :src="$store.state.imgHeader+item.cover" />
+						<img v-lazy="$store.state.imgHeader+item.cover" :key="item.cover"/>
 					</div>
 					<div class="category-book-itemMain">
 						<p class="category-book-itemMain-title" v-text="item.title"></p>

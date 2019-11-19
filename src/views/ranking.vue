@@ -15,7 +15,7 @@
 				<cube-scroll>
 					<router-link :to="{path: 'book', query: {id: item.id}}" tag="div" class="ranking-right-item" v-for="item in rankingData.childData">
 						<div class="ranking-right-item-img">
-							<img :src="item.img"/>
+							<img v-lazy="item.img" :key="item.img"/>
 						</div>
 						<div class="ranking-right-item-main">
 							<p class="ranking-right-item-name" v-text="item.name"></p>

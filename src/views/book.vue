@@ -6,7 +6,7 @@
 		<div class="book" :style="{height: scrollHeight}" ref="book">
 			<div class="book-header">
 				<div class="book-header-img">
-					<img :src="bookInfo.img" />
+					<img v-lazy="bookInfo.img" :key="bookInfo.img"/>
 				</div>
 				<div class="book-header-main">
 					<p class="book-header-main-name" v-text="bookInfo.name"></p>
@@ -52,7 +52,7 @@
 				<div class="book-review-main">
 					<div class="book-review-item" v-for="(item, index) in bookReviewData" :key="index">
 						<div class="book-review-item-left">
-							<img :src="item.avater" />
+							<img v-lazy="item.avater" :key="item.avater"/>
 						</div>
 						<div class="book-review-item-right">
 							<p class="book-review-item-name" v-text="item.name"></p>
@@ -73,7 +73,7 @@
 				</div>
 				<ul>
 					<router-link :to="{path: 'book', query: {id: item.id}}" v-for="(item, index) in moreLoveData" tag="li">
-						<img :src="item.img" />
+						<img v-lazy="item.img" :key="item.img"/>
 						<p v-text="item.title"></p>
 					</router-link>
 				</ul>

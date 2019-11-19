@@ -8,7 +8,7 @@
 				<cube-slide :data="swiperData">
 				  <cube-slide-item v-for="(item, index) in swiperData" :key="index">
 				    <router-link :to="{path: 'book', query: {id: item.id}}" tag="div" class="feature-swiper-item">
-				      <img :src="item.img">
+				      <img v-lazy="item.img" :key="item.img"/>
 				    </router-link>
 				  </cube-slide-item>
 				</cube-slide>
@@ -21,7 +21,7 @@
 					</div>
 					<router-link :to="{path: 'book', query: {id: items.id}}" tag="div" class="feature-items" v-for="(items, index) in item.children" :key="index">
 						<div class="feature-items-img">
-							<img :src="items.img" />
+							<img v-lazy="items.img" key="items.img"/>
 						</div>
 						<div class="feature-items-main">
 							<p class="feature-items-name" v-text="items.name"></p>

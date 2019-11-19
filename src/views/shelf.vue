@@ -10,7 +10,7 @@
 						<router-link :to="{path: 'read', query: {id: item.item.id, name: item.item.name}}" tag="div" class="shelf-item" v-for="(item, index) in bookData" :key="index">
 							<cube-swipe-item :btns="item.btns" :index="index" ref="swipeItem" @btn-click="btnClick">
 								<div class="shelf-item-img">
-									<img :src="item.item.img" />
+									<img v-lazy="item.item.img" :key="item.item.img"/>
 								</div>
 								<div class="shelf-item-content">
 									<p>
