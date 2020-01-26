@@ -1,23 +1,21 @@
 module.exports = {
-	publicPath: './', //https://cli.vuejs.org/zh/config/#publicpath
+  publicPath: './',
 	assetsDir: 'static',
-	css: {
-		loaderOptions: {
-			stylus: {
-				'resolve url': true,
-				'import': [
-					'./src/theme'
-				]
-			}
-		}
-	},
-	pluginOptions: {
-		'cube-ui': {
-			postCompile: true,
-			theme: true
-		}
-	},
-	configureWebpack: {
+  css: {
+    loaderOptions: {
+      stylus: {
+        "resolve url": true,
+        import: ["./src/theme"]
+      }
+    }
+  },
+  pluginOptions: {
+    "cube-ui": {
+      postCompile: true,
+      theme: true
+    }
+  },
+  configureWebpack: {
 		externals: {
 			'vue': 'Vue',
 			'vue-router': 'VueRouter',
@@ -44,4 +42,4 @@ module.exports = {
 			}
 		}
 	}
-}
+};

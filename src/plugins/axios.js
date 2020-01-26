@@ -1,6 +1,6 @@
 "use strict";
 
-import Vue from 'vue';
+import Vue from "vue";
 import axios from "axios";
 
 // Full config:  https://github.com/axios/axios#request-config
@@ -9,7 +9,7 @@ import axios from "axios";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: process.env.NODE_ENV === "development" ? '/api' : '/api'//'http://api.zhuishushenqi.com/'
+  baseURL: process.env.NODE_ENV === "development" ? "/api" : "/api" //'http://api.zhuishushenqi.com/'
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };
@@ -39,7 +39,7 @@ _axios.interceptors.response.use(
   }
 );
 
-Plugin.install = function(Vue, options) {
+Plugin.install = function(Vue) {
   Vue.axios = _axios;
   window.axios = _axios;
   Object.defineProperties(Vue.prototype, {
@@ -52,10 +52,10 @@ Plugin.install = function(Vue, options) {
       get() {
         return _axios;
       }
-    },
+    }
   });
 };
 
-Vue.use(Plugin)
+Vue.use(Plugin);
 
 export default Plugin;
