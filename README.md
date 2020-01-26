@@ -1,5 +1,5 @@
 # novel
-A novel demo developed with vue-cli3 and cube-ui
+A novel demo developed with vue-cli4 and cube-ui
 
 ## screenshot
 ![书架](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/1.jpg)
