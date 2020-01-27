@@ -177,7 +177,7 @@ export default {
         this.bookInfo.latelyFollower = this.formatPeople(
           res.data.latelyFollower
         );
-        this.bookInfo.retentionRatio = res.data.retentionRatio;
+        this.bookInfo.retentionRatio = res.data.retentionRatio || 0;
         this.bookInfo.serializeWordCount =
           res.data.serializeWordCount > 0 ? res.data.serializeWordCount : 0;
         this.bookInfo.longIntro = res.data.longIntro;

@@ -1,5 +1,5 @@
 # novel
-A novel demo developed with vue-cli3 and cube-ui
+基于vue-cli4以及cube-ui搭建的小说移动端，项目采用vw布局，数据调用自追书神器API，仅供学习使用。本项目在逐步优化中
 
 ## screenshot
 ![书架](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/1.jpg)
@@ -9,6 +9,7 @@ A novel demo developed with vue-cli3 and cube-ui
 ![阅读页](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/5.jpg)
 ![排行](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/6.jpg)
 ![精选](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/7.jpg)
+![搜素](https://github.com/vanbolee/xiaoshuo/blob/master/src/assets/screenshot/8.jpg)
 
 ## Project setup
 ```

@@ -126,7 +126,7 @@ export default {
             name: res.data.ranking.books[i].title,
             img: this.$store.state.imgHeader + res.data.ranking.books[i].cover,
             intro: res.data.ranking.books[i].shortIntro,
-            retentionRatio: res.data.ranking.books[i].retentionRatio,
+            retentionRatio: res.data.ranking.books[i].retentionRatio || 0,
             latelyFollower: this.formatPeople(
               res.data.ranking.books[i].latelyFollower
             )

@@ -25,7 +25,7 @@
           :to="{ path: 'book', query: { id: item._id } }"
           class="category-book-item border-bottom-1px"
           v-for="(item, index) in bookData"
-					:key="index"
+          :key="index"
           tag="div"
         >
           <div class="category-book-itemImg">
@@ -52,7 +52,7 @@
                 v-text="formatPeople(item.latelyFollower)"
               ></span>
               <span>人&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-              <span class="red" v-text="item.retentionRatio + '%'"></span>
+              <span class="red" v-text="(item.retentionRatio || 0) + '%'"></span>
               <span>读者留存</span>
             </p>
           </div>
