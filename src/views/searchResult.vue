@@ -59,7 +59,6 @@ export default {
       this.$axios
         .get("/book/fuzzy-search?query=" + this.$route.query.query, {})
         .then(res => {
-          console.log(res);
           let resultData = [];
           if (res.data && res.data.books) {
             for (let i = 0; i < res.data.books.length; i++) {
