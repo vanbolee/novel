@@ -1,5 +1,5 @@
 import Vue from "vue";
-import "./plugins/axios";
+import axios from "./plugins/axios";
 import "./cube-ui";
 import App from "./App.vue";
 import "./assets/font/iconfont.css";
@@ -19,6 +19,8 @@ Vue.directive("title", {
     document.title = binding.value;
   }
 });
+
+Vue.prototype.$axios = axios;
 
 new Vue({
   router,

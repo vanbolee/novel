@@ -1,22 +1,17 @@
-"use strict";
-
-import Vue from "vue";
 import axios from "axios";
 
-// Full config:  https://github.com/axios/axios#request-config
-// axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development" ? "/api" : "/api";
 
-let config = {
-  baseURL: process.env.NODE_ENV === "development" ? "/api" : "/api" //'http://api.zhuishushenqi.com/'
-  // timeout: 60 * 1000, // Timeout
-  // withCredentials: true, // Check cross-site Access-Control
-};
+axios.defaults.timeout = 10000;
 
-const _axios = axios.create(config);
+//重试请求次数
+const retry = 3;
 
-_axios.interceptors.request.use(
+//重试请求的间隙
+const retryDelay = 1000;
+
+axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
     return config;
@@ -28,34 +23,43 @@ _axios.interceptors.request.use(
 );
 
 // Add a response interceptor
-_axios.interceptors.response.use(
+axios.interceptors.response.use(
   function(response) {
     // Do something with response data
     return response;
   },
-  function(error) {
+  async error => {
     // Do something with response error
-    return Promise.reject(error);
+
+    //请求超时的之后，抛出 error.code = ECONNABORTED的错误..错误信息是 timeout of  xxx ms exceeded
+    if (
+      error.code == "ECONNABORTED" &&
+      error.message.indexOf("timeout") != -1
+    ) {
+      let config = error.config;
+      config.__retryCount = config.__retryCount || 0;
+
+      if (config.__retryCount >= retry) {
+        // Reject with the error
+        return Promise.reject(error);
+      }
+
+      // Increase the retry count
+      config.__retryCount += 1;
+
+      // Create new promise to handle exponential backoff
+      let backoff = new Promise(function(resolve) {
+        setTimeout(function() {
+          resolve();
+        }, retryDelay || 1);
+      });
+
+      await backoff;
+      return axios(config);
+    } else {
+      return Promise.reject(error);
+    }
   }
 );
 
-Plugin.install = function(Vue) {
-  Vue.axios = _axios;
-  window.axios = _axios;
-  Object.defineProperties(Vue.prototype, {
-    axios: {
-      get() {
-        return _axios;
-      }
-    },
-    $axios: {
-      get() {
-        return _axios;
-      }
-    }
-  });
-};
-
-Vue.use(Plugin);
-
-export default Plugin;
+export default axios;
