@@ -5,18 +5,22 @@
     </m-header>
     <div class="category-filter">
       <div class="category-filter-item">
-        <cube-checker
-          v-model="checkerType"
-          :options="checkerTypeOptions"
-          type="radio"
-        />
+        <cube-scroll direction="horizontal">
+          <cube-checker
+            v-model="checkerType"
+            :options="checkerTypeOptions"
+            type="radio"
+          />
+        </cube-scroll>
       </div>
       <div class="category-filter-item">
-        <cube-checker
-          v-model="checkerClassifyChild"
-          :options="checkerClassifyChildOptions"
-          type="radio"
-        />
+        <cube-scroll direction="horizontal">
+          <cube-checker
+            v-model="checkerClassifyChild"
+            :options="checkerClassifyChildOptions"
+            type="radio"
+          />
+        </cube-scroll>
       </div>
     </div>
     <div class="category" :style="{ height: scrollHeight }">
@@ -52,7 +56,10 @@
                 v-text="formatPeople(item.latelyFollower)"
               ></span>
               <span>人&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-              <span class="red" v-text="(item.retentionRatio || 0) + '%'"></span>
+              <span
+                class="red"
+                v-text="(item.retentionRatio || 0) + '%'"
+              ></span>
               <span>读者留存</span>
             </p>
           </div>
@@ -89,8 +96,8 @@ export default {
   computed: {
     scrollHeight() {
       return (
-        document.body.clientHeight -
-        (34.13333 * document.body.clientWidth) / 100 +
+        this.$store.state.clientHeight -
+        (36.26666 * this.$store.state.clientWidth) / 100 +
         "px"
       );
     },
@@ -196,12 +203,17 @@ export default {
   font-size: 14px;
 }
 .category-filter-item {
-  white-space: nowrap;
-  overflow-x: scroll;
+  /* white-space: nowrap;
+  overflow-x: scroll; */
   border-bottom: 1px solid #f0f0f0;
+}
+.category-filter-item >>> .cube-scroll-content {
+  display: inline-block;
 }
 .category-filter-item >>> .cube-checker {
   padding-left: 10px;
+  display: inline-block;
+  white-space: nowrap;
 }
 .category-filter-item >>> .cube-checker-item {
   font-size: 14px;

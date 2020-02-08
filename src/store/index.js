@@ -5,9 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    imgHeader: 'https://statics.zhuishushenqi.com'
+    clientWidth: "",
+    clientHeight: "",
+    imgHeader: "https://statics.zhuishushenqi.com"
   },
-  mutations: {},
+  mutations: {
+    initClientData(state, newState) {
+      state.clientWidth = newState.clientWidth;
+      state.clientHeight = newState.clientHeight;
+    }
+  },
   actions: {},
   modules: {}
 });

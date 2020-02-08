@@ -70,8 +70,8 @@ export default {
   computed: {
     scrollHeight: function() {
       return (
-        document.body.clientHeight -
-        (24.53333 * document.body.clientWidth) / 100 +
+        this.$store.state.clientHeight -
+        (24.53333 * this.$store.state.clientWidth) / 100 +
         "px"
       );
     }

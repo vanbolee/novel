@@ -4,56 +4,58 @@
       <!--<a slot="label">123</a>-->
     </m-header>
     <div class="feature" :style="{ height: scrollHeight }">
-      <div class="feature-swiper">
-        <cube-slide :data="swiperData">
-          <cube-slide-item v-for="(item, index) in swiperData" :key="index">
-            <router-link
-              :to="{ path: 'book', query: { id: item.id } }"
-              tag="div"
-              class="feature-swiper-item"
-            >
-              <img v-lazy="item.img" :key="item.img" />
-            </router-link>
-          </cube-slide-item>
-        </cube-slide>
-      </div>
-      <div class="feature-main">
-        <div
-          class="feature-item"
-          v-for="(item, index) in featureData"
-          :key="index"
-        >
-          <div class="feature-item-title">
-            <span v-text="item.name"></span>
-            <span>更多&gt;</span>
-          </div>
-          <router-link
-            :to="{ path: 'book', query: { id: items.id } }"
-            tag="div"
-            class="feature-items"
-            v-for="(items, index) in item.children"
+      <cube-scroll>
+        <div class="feature-swiper">
+          <cube-slide :data="swiperData">
+            <cube-slide-item v-for="(item, index) in swiperData" :key="index">
+              <router-link
+                :to="{ path: 'book', query: { id: item.id } }"
+                tag="div"
+                class="feature-swiper-item"
+              >
+                <img v-lazy="item.img" :key="item.img" />
+              </router-link>
+            </cube-slide-item>
+          </cube-slide>
+        </div>
+        <div class="feature-main">
+          <div
+            class="feature-item"
+            v-for="(item, index) in featureData"
             :key="index"
           >
-            <div class="feature-items-img">
-              <img v-lazy="items.img" key="items.img" />
+            <div class="feature-item-title">
+              <span v-text="item.name"></span>
+              <span>更多&gt;</span>
             </div>
-            <div class="feature-items-main">
-              <p class="feature-items-name" v-text="items.name"></p>
-              <p class="feature-items-intro" v-text="items.intro"></p>
-              <p class="feature-items-category">
-                <span v-text="items.minorCate"></span>
-                <span v-html="'&nbsp;&nbsp;|&nbsp;&nbsp;'"></span>
-                <span class="red" v-text="items.latelyFollower"></span>
-                <span v-text="'人气'"></span>
-                <span
-                  class="feature-items-major"
-                  v-text="items.majorCate"
-                ></span>
-              </p>
-            </div>
-          </router-link>
+            <router-link
+              :to="{ path: 'book', query: { id: items.id } }"
+              tag="div"
+              class="feature-items"
+              v-for="(items, index) in item.children"
+              :key="index"
+            >
+              <div class="feature-items-img">
+                <img v-lazy="items.img" key="items.img" />
+              </div>
+              <div class="feature-items-main">
+                <p class="feature-items-name" v-text="items.name"></p>
+                <p class="feature-items-intro" v-text="items.intro"></p>
+                <p class="feature-items-category">
+                  <span v-text="items.minorCate"></span>
+                  <span v-html="'&nbsp;&nbsp;|&nbsp;&nbsp;'"></span>
+                  <span class="red" v-text="items.latelyFollower"></span>
+                  <span v-text="'人气'"></span>
+                  <span
+                    class="feature-items-major"
+                    v-text="items.majorCate"
+                  ></span>
+                </p>
+              </div>
+            </router-link>
+          </div>
         </div>
-      </div>
+      </cube-scroll>
     </div>
     <m-footer></m-footer>
   </div>
@@ -81,10 +83,9 @@ export default {
   methods: {
     getData() {
       this.$axios.get("/recommendPage/nodes/" + this.id, {}).then(res => {
-        let _data = {};
         for (let i = 0; i < res.data.data.length; i++) {
           if (res.data.data[i].sex !== "none") {
-            _data = {
+            let _data = {
               alias: res.data.data[i].alias,
               name: res.data.data[i].title,
               id: res.data.data[i]._id,
@@ -121,18 +122,20 @@ export default {
         this.$axios
           .get("/recommendPage/books/" + this.featureData[i].id, {})
           .then(res => {
-            for (let j = 0; j < res.data.data.length; j++) {
-              this.featureData[i].children.push({
-                id: res.data.data[j].book._id,
-                img: res.data.data[j].book.cover,
-                name: res.data.data[j].book.title,
-                intro: res.data.data[j].book.shortIntro,
-                minorCate: res.data.data[j].book.minorCate,
-                majorCate: res.data.data[j].book.majorCate,
-                latelyFollower: this.formatPeople(
-                  res.data.data[j].book.latelyFollower
-                )
-              });
+            if (res.data.data) {
+              for (let j = 0; j < res.data.data.length; j++) {
+                this.featureData[i].children.push({
+                  id: res.data.data[j].book._id,
+                  img: res.data.data[j].book.cover,
+                  name: res.data.data[j].book.title,
+                  intro: res.data.data[j].book.shortIntro,
+                  minorCate: res.data.data[j].book.minorCate,
+                  majorCate: res.data.data[j].book.majorCate,
+                  latelyFollower: this.formatPeople(
+                    res.data.data[j].book.latelyFollower
+                  )
+                });
+              }
             }
           });
       }
@@ -148,8 +151,8 @@ export default {
   computed: {
     scrollHeight: function() {
       return (
-        document.body.clientHeight -
-        (24.53333 * document.body.clientWidth) / 100 +
+        this.$store.state.clientHeight -
+        (24.53333 * this.$store.state.clientWidth) / 100 +
         "px"
       );
     }

@@ -30,6 +30,7 @@
 import readContent from "@/components/readContent";
 import readControl from "@/components/readControl";
 import readMenu from "@/components/readMenu";
+import { overscroll } from "@/plugins/common";
 export default {
   components: {
     readContent,
@@ -210,6 +211,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      overscroll(this.$refs.read);
       setTimeout(() => {
         this.$refs.read.addEventListener("scroll", this.scroll);
       }, 1000);

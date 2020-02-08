@@ -4,115 +4,117 @@
       <!--<a slot="label">123</a>-->
     </m-header>
     <div class="book" :style="{ height: scrollHeight }" ref="book">
-      <div class="book-header">
-        <div class="book-header-img">
-          <img v-lazy="bookInfo.img" :key="bookInfo.img" />
-        </div>
-        <div class="book-header-main">
-          <p class="book-header-main-name" v-text="bookInfo.name"></p>
-          <p class="book-header-main-info">
-            <span v-text="bookInfo.author"></span>
-            <span
-              v-html="
-                '&nbsp;&nbsp;|&nbsp;&nbsp;' +
-                  bookInfo.minorCate +
+      <cube-scroll>
+        <div class="book-header">
+          <div class="book-header-img">
+            <img v-lazy="bookInfo.img" :key="bookInfo.img" />
+          </div>
+          <div class="book-header-main">
+            <p class="book-header-main-name" v-text="bookInfo.name"></p>
+            <p class="book-header-main-info">
+              <span v-text="bookInfo.author"></span>
+              <span
+                v-html="
                   '&nbsp;&nbsp;|&nbsp;&nbsp;' +
-                  formatWord(bookInfo.wordCount) +
-                  '字'
-              "
-            ></span>
-          </p>
-          <p class="book-header-main-time" v-text="bookInfo.updatedTime"></p>
+                    bookInfo.minorCate +
+                    '&nbsp;&nbsp;|&nbsp;&nbsp;' +
+                    formatWord(bookInfo.wordCount) +
+                    '字'
+                "
+              ></span>
+            </p>
+            <p class="book-header-main-time" v-text="bookInfo.updatedTime"></p>
+          </div>
         </div>
-      </div>
-      <div class="book-button">
-        <a
-          @click="toOperateShelf"
-          :class="{ 'book-button-disabled': isAddShelf }"
-          v-text="isAddShelf ? '撤出书架' : '加入书架'"
-        ></a>
-        <router-link
-          :to="{
-            path: 'read',
-            query: { id: this.bookId, name: bookInfo.name }
-          }"
-          tag="a"
-          >开始阅读</router-link
-        >
-      </div>
-      <div class="book-data">
-        <div class="book-data-item">
-          <p>追人气</p>
-          <span v-text="bookInfo.latelyFollower"></span>
-        </div>
-        <div class="book-data-item">
-          <p>读者留存率</p>
-          <span v-text="bookInfo.retentionRatio + '%'"></span>
-        </div>
-        <div class="book-data-item">
-          <p>日更字数/天</p>
-          <span v-text="bookInfo.serializeWordCount"></span>
-        </div>
-      </div>
-      <div
-        class="book-intro"
-        :class="{ 'book-intro-show': showAllLongIntro }"
-        @click="showAllLongIntro = !showAllLongIntro"
-      >
-        <p v-text="bookInfo.longIntro"></p>
-        <p class="arrow" :class="{ up: showAllLongIntro }"></p>
-      </div>
-      <div class="book-menu-cell">
-        <p class="book-menu-cell-title">目录</p>
-        <p
-          class="book-menu-cell-text"
-          v-text="'[' + bookInfo.updatedTime + '] ' + bookInfo.lastChapter"
-        ></p>
-        <i class="cubeic-arrow"></i>
-      </div>
-      <div class="book-review">
-        <div class="book-review-title">
-          <p>热门书评</p>
-          <p>更多评论</p>
-        </div>
-        <div class="book-review-main">
-          <div
-            class="book-review-item"
-            v-for="(item, index) in bookReviewData"
-            :key="index"
+        <div class="book-button">
+          <a
+            @click="toOperateShelf"
+            :class="{ 'book-button-disabled': isAddShelf }"
+            v-text="isAddShelf ? '撤出书架' : '加入书架'"
+          ></a>
+          <router-link
+            :to="{
+              path: 'read',
+              query: { id: this.bookId, name: bookInfo.name }
+            }"
+            tag="a"
+            >开始阅读</router-link
           >
-            <div class="book-review-item-left">
-              <img v-lazy="item.avater" :key="item.avater" />
-            </div>
-            <div class="book-review-item-right">
-              <p class="book-review-item-name" v-text="item.name"></p>
-              <p class="book-review-item-title" v-text="item.title"></p>
-              <p class="book-review-item-content" v-text="item.content"></p>
-              <p class="book-review-item-love">
-                <span v-text="item.time"></span>
-                <span v-text="item.likeCount + '人觉得有用'"></span>
-              </p>
+        </div>
+        <div class="book-data">
+          <div class="book-data-item">
+            <p>追人气</p>
+            <span v-text="bookInfo.latelyFollower"></span>
+          </div>
+          <div class="book-data-item">
+            <p>读者留存率</p>
+            <span v-text="bookInfo.retentionRatio + '%'"></span>
+          </div>
+          <div class="book-data-item">
+            <p>日更字数/天</p>
+            <span v-text="bookInfo.serializeWordCount"></span>
+          </div>
+        </div>
+        <div
+          class="book-intro"
+          :class="{ 'book-intro-show': showAllLongIntro }"
+          @click="showAllLongIntro = !showAllLongIntro"
+        >
+          <p v-text="bookInfo.longIntro"></p>
+          <p class="arrow" :class="{ up: showAllLongIntro }"></p>
+        </div>
+        <div class="book-menu-cell">
+          <p class="book-menu-cell-title">目录</p>
+          <p
+            class="book-menu-cell-text"
+            v-text="'[' + bookInfo.updatedTime + '] ' + bookInfo.lastChapter"
+          ></p>
+          <i class="cubeic-arrow"></i>
+        </div>
+        <div class="book-review">
+          <div class="book-review-title">
+            <p>热门书评</p>
+            <p>更多评论</p>
+          </div>
+          <div class="book-review-main">
+            <div
+              class="book-review-item"
+              v-for="(item, index) in bookReviewData"
+              :key="index"
+            >
+              <div class="book-review-item-left">
+                <img v-lazy="item.avater" :key="item.avater" />
+              </div>
+              <div class="book-review-item-right">
+                <p class="book-review-item-name" v-text="item.name"></p>
+                <p class="book-review-item-title" v-text="item.title"></p>
+                <p class="book-review-item-content" v-text="item.content"></p>
+                <p class="book-review-item-love">
+                  <span v-text="item.time"></span>
+                  <span v-text="item.likeCount + '人觉得有用'"></span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="book-moreLove">
-        <div class="book-moreLove-title">
-          <span>你可能感兴趣</span>
-          <span>更多</span>
+        <div class="book-moreLove">
+          <div class="book-moreLove-title">
+            <span>你可能感兴趣</span>
+            <span>更多</span>
+          </div>
+          <ul>
+            <router-link
+              :to="{ path: 'book', query: { id: item.id } }"
+              v-for="(item, index) in moreLoveData"
+              :key="index"
+              tag="li"
+            >
+              <img v-lazy="item.img" :key="item.img" />
+              <p v-text="item.title"></p>
+            </router-link>
+          </ul>
         </div>
-        <ul>
-          <router-link
-            :to="{ path: 'book', query: { id: item.id } }"
-            v-for="(item, index) in moreLoveData"
-            :key="index"
-            tag="li"
-          >
-            <img v-lazy="item.img" :key="item.img" />
-            <p v-text="item.title"></p>
-          </router-link>
-        </ul>
-      </div>
+      </cube-scroll>
     </div>
   </div>
 </template>
@@ -314,8 +316,8 @@ export default {
   computed: {
     scrollHeight() {
       return (
-        document.body.clientHeight -
-        (10.66667 * document.body.clientWidth) / 100 +
+        this.$store.state.clientHeight -
+        (10.66667 * this.$store.state.clientWidth) / 100 +
         "px"
       );
     }
