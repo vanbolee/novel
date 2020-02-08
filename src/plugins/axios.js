@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Toast } from "cube-ui";
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === "development" ? "/api" : "/api";
@@ -57,6 +58,11 @@ axios.interceptors.response.use(
       await backoff;
       return axios(config);
     } else {
+      Toast.$create({
+        txt: error.message,
+        type: "txt",
+        time: 2000
+      }).show();
       return Promise.reject(error);
     }
   }
