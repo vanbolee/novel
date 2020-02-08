@@ -14,7 +14,6 @@
         v-text="items"
       ></p>
     </li>
-    <!--<div class="read-loading" :style="{visibility: showLoading ? 'visible' : 'hidden'}">加载中。。。</div>-->
     <cube-loading
       class="read-loading"
       :style="{ visibility: showLoading ? 'visible' : 'hidden' }"
