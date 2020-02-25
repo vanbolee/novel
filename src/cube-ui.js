@@ -43,7 +43,7 @@ import {
   Scroll,
   Slide,
   // IndexList,
-  Swipe,
+  Swipe
   // Sticky,
   // ScrollNav,
   // ScrollNavBar

@@ -7,6 +7,7 @@ import router from "./router";
 import store from "./store";
 import FastClick from "fastclick";
 import VueLazyload from "vue-lazyload";
+import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
 
