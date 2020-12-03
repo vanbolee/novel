@@ -113,7 +113,7 @@ export default {
     },
     getChapter() {
       this.$axios
-        .get("/chapter/" + this.menu[this.source.menuIndex - 1].link, {})
+        .get("/chapter/" + encodeURIComponent(this.menu[this.source.menuIndex - 1].link), {})
         .then(res => {
           let _content = res.data.chapter.cpContent
             ? res.data.chapter.cpContent
